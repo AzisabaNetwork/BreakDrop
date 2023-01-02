@@ -6,6 +6,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -121,27 +122,28 @@ public final class ConfigMinecraftItem implements ConfigItem {
         if (item == null || item.getType() != getType()) {
             return false;
         }
+        ItemMeta meta = item.hasItemMeta() ? item.getItemMeta() : null;
         if (getCustomModelData() != 0) {
-            if (!item.hasItemMeta() || !item.getItemMeta().hasCustomModelData()) {
+            if (meta == null || !meta.hasCustomModelData()) {
                 return false;
             }
-            if (item.getItemMeta().getCustomModelData() != getCustomModelData()) {
+            if (meta.getCustomModelData() != getCustomModelData()) {
                 return false;
             }
         }
         if (getDisplayName() != null) {
-            if (!item.hasItemMeta() || !item.getItemMeta().hasDisplayName()) {
+            if (meta == null || !meta.hasDisplayName()) {
                 return false;
             }
-            if (!item.getItemMeta().getDisplayName().equals(getDisplayName())) {
+            if (!meta.getDisplayName().equals(getDisplayName())) {
                 return false;
             }
         }
         if (getLore() != null) {
-            if (!item.hasItemMeta() || !item.getItemMeta().hasLore()) {
+            if (meta == null || !meta.hasLore()) {
                 return false;
             }
-            List<String> itemLore = item.getItemMeta().getLore();
+            List<String> itemLore = meta.getLore();
             if (itemLore == null || itemLore.size() != getLore().size()) {
                 return false;
             }
@@ -152,14 +154,14 @@ public final class ConfigMinecraftItem implements ConfigItem {
             }
         }
         if (!getEnchantments().isEmpty()) {
-            if (!item.hasItemMeta() || !item.getItemMeta().hasEnchants()) {
+            if (meta == null || !meta.hasEnchants()) {
                 return false;
             }
             for (Map.Entry<Enchantment, Integer> entry : getEnchantments().entrySet()) {
-                if (!item.getItemMeta().hasEnchant(entry.getKey())) {
+                if (!meta.hasEnchant(entry.getKey())) {
                     return false;
                 }
-                if (item.getItemMeta().getEnchantLevel(entry.getKey()) != entry.getValue()) {
+                if (meta.getEnchantLevel(entry.getKey()) != entry.getValue()) {
                     return false;
                 }
             }
