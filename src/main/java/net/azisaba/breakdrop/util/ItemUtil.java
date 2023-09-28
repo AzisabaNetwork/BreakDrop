@@ -9,7 +9,10 @@ import org.jetbrains.annotations.Nullable;
 
 public class ItemUtil {
     @Contract(pure = true)
-    public static @NotNull NBTTagCompound getTag(@NotNull ItemStack item) {
+    public static @NotNull NBTTagCompound getTag(@Nullable ItemStack item) {
+        if (item == null) {
+            return new NBTTagCompound();
+        }
         net.minecraft.server.v1_15_R1.ItemStack nmsItem = CraftItemStack.asNMSCopy(item);
         NBTTagCompound tag = nmsItem.getTag();
         if (tag == null) {
