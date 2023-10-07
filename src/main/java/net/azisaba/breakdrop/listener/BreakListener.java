@@ -6,6 +6,7 @@ import net.azisaba.breakdrop.config.ConfigDrop;
 import net.azisaba.breakdrop.config.ConfigDropFunction;
 import net.azisaba.breakdrop.util.ItemUtil;
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -35,20 +36,22 @@ public class BreakListener implements Listener {
             return;
         }
         for (ConfigDrop drop : plugin.getPluginConfig().getDrops()) {
-            if (!drop.canExecute(e.getPlayer(), e.getBlock())) {
-                continue;
-            }
-            for (ConfigDropFunction function : drop.getFunctions()) {
-                if (!function.canExecute(e.getPlayer(), e.getBlock())) {
-                    continue;
+            Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+                if (!drop.canExecute(e.getPlayer(), e.getBlock())) {
+                    return;
                 }
-                for (int i = 0; i < function.getCount(); i++) {
-                    if (!function.rollChance()) {
+                for (ConfigDropFunction function : drop.getFunctions()) {
+                    if (!function.canExecute(e.getPlayer(), e.getBlock())) {
                         continue;
                     }
-                    function.execute(e.getPlayer(), e.getBlock());
+                    for (int i = 0; i < function.getCount(); i++) {
+                        if (!function.rollChance()) {
+                            continue;
+                        }
+                        Bukkit.getScheduler().runTask(plugin, () -> function.execute(e.getPlayer(), e.getBlock()));
+                    }
                 }
-            }
+            });
         }
     }
 }
