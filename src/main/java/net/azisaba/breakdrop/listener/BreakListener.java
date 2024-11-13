@@ -5,7 +5,7 @@ import net.azisaba.breakdrop.BreakDrop;
 import net.azisaba.breakdrop.config.ConfigDrop;
 import net.azisaba.breakdrop.config.ConfigDropFunction;
 import net.azisaba.breakdrop.util.ItemUtil;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.nbt.CompoundTag;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
@@ -28,8 +28,8 @@ public class BreakListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onBlockBreak(@NotNull BlockBreakEvent e) {
-        NBTTagCompound mainTag = ItemUtil.getTag(e.getPlayer().getInventory().getItemInMainHand());
-        NBTTagCompound offTag = ItemUtil.getTag(e.getPlayer().getInventory().getItemInOffHand());
+        CompoundTag mainTag = ItemUtil.getTag(e.getPlayer().getInventory().getItemInMainHand());
+        CompoundTag offTag = ItemUtil.getTag(e.getPlayer().getInventory().getItemInOffHand());
         if (EXCLUDED_LIFE_ITEM_ID.contains(mainTag.getString("LifeItemId")) || EXCLUDED_LIFE_ITEM_ID.contains(offTag.getString("LifeItemId"))) {
             return;
         }
