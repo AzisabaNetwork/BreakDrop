@@ -1,6 +1,5 @@
 package net.azisaba.breakdrop.config;
 
-import org.bukkit.block.Block;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
@@ -11,6 +10,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Locale;
 
 public final class ConfigSlotItem {
+    private static final EquipmentSlot[] VALID_SLOTS = new EquipmentSlot[] {
+        EquipmentSlot.HAND, EquipmentSlot.OFF_HAND, EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET
+    };
     private final ConfigItem item;
     private final EquipmentSlot slot;
 
@@ -45,7 +47,7 @@ public final class ConfigSlotItem {
 
     public boolean check(@NotNull Player player) {
         if (getSlot() == null) {
-            for (EquipmentSlot slot : EquipmentSlot.values()) {
+            for (EquipmentSlot slot : VALID_SLOTS) {
                 if (item.check(player.getInventory().getItem(slot))) {
                     return true;
                 }

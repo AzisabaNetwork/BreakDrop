@@ -7,6 +7,7 @@ import net.azisaba.breakdrop.config.ConfigDropFunction;
 import net.azisaba.breakdrop.util.ItemUtil;
 import net.minecraft.server.v1_15_R1.NBTTagCompound;
 import org.bukkit.Bukkit;
+import org.bukkit.block.BlockState;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -32,7 +33,7 @@ public class BreakListener implements Listener {
         if (EXCLUDED_LIFE_ITEM_ID.contains(mainTag.getString("LifeItemId")) || EXCLUDED_LIFE_ITEM_ID.contains(offTag.getString("LifeItemId"))) {
             return;
         }
-        if (mcMMO.getPlaceStore().isTrue(e.getBlock().getState())) {
+        if (Bukkit.getPluginManager().isPluginEnabled("mcMMO") && checkPlaceStore(e.getBlock().getState())) {
             return;
         }
         for (ConfigDrop drop : plugin.getPluginConfig().getDrops()) {
@@ -53,5 +54,9 @@ public class BreakListener implements Listener {
                 }
             });
         }
+    }
+
+    private static boolean checkPlaceStore(BlockState blockState) {
+        return mcMMO.getPlaceStore().isTrue(blockState);
     }
 }

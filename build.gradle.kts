@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "net.azisaba"
-version = "1.0.4-SNAPSHOT"
+version = "1.0.5"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(8))
@@ -17,6 +17,7 @@ repositories {
     maven { url = uri("https://papermc.io/repo/repository/maven-public/") }
     maven { url = uri("https://jitpack.io/") }
     maven { url = uri("https://mvn.lumine.io/repository/maven-public/") }
+    maven { url = uri("https://nexus.neetgames.com/repository/maven-public/") } // for mcMMO
 }
 
 dependencies {
@@ -24,7 +25,10 @@ dependencies {
     compileOnly("com.destroystokyo.paper:paper-api:1.15.2-R0.1-SNAPSHOT")
     compileOnly("org.spigotmc:spigot:1.15.2-R0.1-SNAPSHOT")
     compileOnly("io.lumine:Mythic-Dist:4.13.0")
-    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.1.200")
+    compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.1.196") {
+        exclude("com.sk89q.worldguard", "worldguard-core")
+        exclude("com.sk89q.worldguard", "worldguard-legacy")
+    }
 }
 
 tasks {

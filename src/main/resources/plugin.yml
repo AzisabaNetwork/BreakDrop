@@ -4,4 +4,5 @@ main: net.azisaba.breakdrop.BreakDrop
 api-version: 1.13
 depend:
   - MythicMobs
+softdepend:
   - mcMMO
