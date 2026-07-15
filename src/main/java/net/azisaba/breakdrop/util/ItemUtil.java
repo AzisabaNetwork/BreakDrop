@@ -29,6 +29,6 @@ public class ItemUtil {
     public static @Nullable String getStringTag(@Nullable ItemStack stack, @NotNull String key) {
         CompoundTag tag = getCustomData(stack);
         if (tag == null) return null;
-        return tag.getString(key).orElse(null);
+        return tag.contains(key) ? tag.getString(key) : null;
     }
 }

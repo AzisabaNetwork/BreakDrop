@@ -26,7 +26,7 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
-    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
+    paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
     compileOnly("io.lumine:Mythic-Dist:5.12.0")
     compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.2.051") {
         exclude("com.sk89q.worldguard", "worldguard-core")
