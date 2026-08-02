@@ -27,7 +27,7 @@ public class BreakListener implements Listener {
     public void onBlockBreak(@NotNull BlockBreakEvent e) {
         var mainLifeItemId = ItemUtil.getStringTag(e.getPlayer().getInventory().getItemInMainHand(), "LifeItemId");
         var offLifeItemId = ItemUtil.getStringTag(e.getPlayer().getInventory().getItemInOffHand(), "LifeItemId");
-        if (EXCLUDED_LIFE_ITEM_ID.contains(mainLifeItemId) || EXCLUDED_LIFE_ITEM_ID.contains(offLifeItemId)) return;
+        if ((mainLifeItemId != null && EXCLUDED_LIFE_ITEM_ID.contains(mainLifeItemId)) || (offLifeItemId != null && EXCLUDED_LIFE_ITEM_ID.contains(offLifeItemId))) return;
 
         if (Bukkit.getPluginManager().isPluginEnabled("mcMMO") && checkPlaceStore(e.getBlock().getState())) {
             return;
