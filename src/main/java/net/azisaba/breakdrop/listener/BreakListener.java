@@ -13,10 +13,11 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.Set;
 
 public class BreakListener implements Listener {
-    private static final Set<String> EXCLUDED_LIFE_ITEM_ID = Set.of("56fabea9-e1f9-4e7f-ae78-83e07e8b8767");
+    private static final Set<String> EXCLUDED_LIFE_ITEM_ID = Collections.singleton("56fabea9-e1f9-4e7f-ae78-83e07e8b8767");
     private final BreakDrop plugin;
 
     public BreakListener(@NotNull BreakDrop plugin) {

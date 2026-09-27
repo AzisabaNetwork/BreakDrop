@@ -1,11 +1,11 @@
 plugins {
     java
     `maven-publish`
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.23"
 }
 
 group = "net.azisaba"
-version = "2.0.2"
+version = "2.0.3+1.21.11"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
@@ -26,7 +26,8 @@ repositories {
 
 dependencies {
     compileOnly("org.jetbrains:annotations:23.0.0")
-    paperweight.paperDevBundle("1.21.1-R0.1-SNAPSHOT")
+    compileOnly("net.kyori:adventure-text-serializer-ansi:5.2.0")
+    paperweight.paperDevBundle("1.21.11-R0.1-SNAPSHOT")
     compileOnly("io.lumine:Mythic-Dist:5.12.0")
     compileOnly("com.gmail.nossr50.mcMMO:mcMMO:2.2.051") {
         exclude("com.sk89q.worldguard", "worldguard-core")
