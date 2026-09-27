@@ -1,7 +1,7 @@
 name: BreakDrop
 version: @version@
 main: net.azisaba.breakdrop.BreakDrop
-api-version: 1.13
+api-version: 1.21
 depend:
   - MythicMobs
 softdepend:
