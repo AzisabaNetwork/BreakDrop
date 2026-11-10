@@ -126,6 +126,7 @@ public final class ConfigDropFunction {
                         new HashSet<>(Collections.singleton(loc)),
                         0f);
         meta.getVariables().putString("equip-slot", "HAND");
-        MythicBukkit.inst().getSkillManager().getSkill(skillName).ifPresent(skill -> skill.execute(meta));
+        // execute()はスキルのConditions/Cooldownを無視して実行するため、executeIfUsable()で判定してから実行する
+        MythicBukkit.inst().getSkillManager().getSkill(skillName).ifPresent(skill -> skill.executeIfUsable(meta));
     }
 }
