@@ -4,6 +4,7 @@ import com.gmail.nossr50.mcMMO;
 import net.azisaba.breakdrop.BreakDrop;
 import net.azisaba.breakdrop.config.ConfigDrop;
 import net.azisaba.breakdrop.config.ConfigDropFunction;
+import net.azisaba.breakdrop.hook.WorldGuardHook;
 import net.azisaba.breakdrop.util.ItemUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
@@ -31,6 +32,11 @@ public class BreakListener implements Listener {
         if ((mainLifeItemId != null && EXCLUDED_LIFE_ITEM_ID.contains(mainLifeItemId)) || (offLifeItemId != null && EXCLUDED_LIFE_ITEM_ID.contains(offLifeItemId))) return;
 
         if (Bukkit.getPluginManager().isPluginEnabled("mcMMO") && checkPlaceStore(e.getBlock().getState())) {
+            return;
+        }
+
+        // 他プラグイン(範囲破壊など)が保護チェックなしでBlockBreakEventを発火する場合があるため、WorldGuardの保護を直接確認する
+        if (Bukkit.getPluginManager().isPluginEnabled("WorldGuard") && !WorldGuardHook.canBreak(e.getPlayer(), e.getBlock())) {
             return;
         }
 

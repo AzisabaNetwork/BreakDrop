@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.azisaba"
-version = "2.0.3+1.21.11"
+version = "2.0.4+1.21.11"
 
 java {
     toolchain.languageVersion.set(JavaLanguageVersion.of(21))
@@ -22,6 +22,7 @@ repositories {
     maven { url = uri("https://jitpack.io/") }
     maven { url = uri("https://mvn.lumine.io/repository/maven-public/") }
     maven { url = uri("https://nexus.neetgames.com/repository/maven-public/") } // for mcMMO
+    maven { url = uri("https://maven.enginehub.org/repo/") } // for WorldGuard
 }
 
 dependencies {
@@ -33,6 +34,10 @@ dependencies {
         exclude("com.sk89q.worldguard", "worldguard-core")
         exclude("com.sk89q.worldguard", "worldguard-legacy")
     }
+    compileOnly("com.sk89q.worldguard:worldguard-bukkit:7.0.14") { isTransitive = false }
+    compileOnly("com.sk89q.worldguard:worldguard-core:7.0.14") { isTransitive = false }
+    compileOnly("com.sk89q.worldedit:worldedit-bukkit:7.3.9") { isTransitive = false }
+    compileOnly("com.sk89q.worldedit:worldedit-core:7.3.9") { isTransitive = false }
 }
 
 tasks {
